@@ -19,73 +19,202 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+
+import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
+
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
+
 import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 import MyAppBar from "../../components/myAppBar/MyAppBar";
-import MyDrawerBox from "../../components/myDrawerBox/MyDrawerBox";
 
 const drawerWidth = 200;
 
-function createData(id, name, last, cc, alias, status) {
-  return { id, name, last, cc, alias, status };
+function TablePaginationActions(props) {
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
+
+  const handleFirstPageButtonClick = (event) => {
+    onPageChange(event, 0);
+  };
+
+  const handleBackButtonClick = (event) => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = (event) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
+
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="first page">
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton onClick={handleNextButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="next page">
+        {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton onClick={handleLastPageButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="last page">
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </Box>
+  );
 }
 
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
+
 const rows = [
-  createData("1010", "Carolina", "Garcia", 123456789, "Carolina", "Activo"),
-  createData("2020", "Cindy", "Garcia", 741852963, "Cindy", "Activo"),
-  createData("3030", "Kelly", "Roque", 963852741, "Kelly", "Activo"),
-  createData("4040", "Robi", "Roque", 789456123, "Robi", "Inactivo"),
-  createData("5050", "Maye", "Gonzalez", 987654321, "Maye", "Activo"),
-  createData("6060", "Flor", "Gonzalez", 369258147, "Flor", "Activo"),
-  createData("7070", "Danny", "Pelaez", 258147369, "Danny", "Inactivo"),
-  createData("8080", "Luigi", "Pelaez", 172839654, "Luigi", "Activo"),
+  { id: "100", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
+  { id: "200", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
+  { id: "300", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
+  { id: "400", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
+  { id: "500", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
+  { id: "600", nombre: "AAAAA", apellido: "BBBBBB", cedula: "111111", alias: "aaaaa", status: "Acr" },
 ];
 
-function Modelos(props) {
+function Modelos({token,usuEmail,rol,borrarToken}) {
+
+  let navegacion = useNavigate()
+  const [modelosDB, setModelosDB] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
+
+  let cargarDatos = () => {
+    fetch("http://localhost:8000/api/modelos",{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token-jwt": token
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //console.log(data);
+        setModelosDB(data);
+      });
+  };
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  useEffect(() => {
+    //console.log('0')
+    if (!token){
+      navegacion('/login')
+    }else if(rol !== 'Administrador'){
+      enqueueSnackbar('PERMISO DENEGADO', {variant: 'warning'} );
+      enqueueSnackbar('ENVIADO A PAGINA DE BIENVENIDA', {variant: 'warning'} );
+      navegacion('/')
+    }else{
+      cargarDatos();
+    }
+    // eslint-disable-next-line
+  },[]);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <MyAppBar />
-      <MyDrawerBox />
+      <MyAppBar usuEmail={usuEmail} borrarToken={borrarToken}/>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
         <Typography variant="h4">Modelos</Typography>
         <Divider sx={{ mt: 2, mb: 3 }} />
         <Card sx={{ minWidth: 275 }}>
           <CardActions sx={{ mt: 1, ml: 1, mr: 1 }}>
-          <TextField id="outlined-basic" label="Buscar.." variant="outlined"/>
-          <Divider orientation="vertical" sx={{ flexGrow: 1 }}/>
+            <TextField id="outlined-basic" label="Buscar.." variant="outlined" />
+            <Divider orientation="vertical" sx={{ flexGrow: 1 }} />
             <Button variant="contained" startIcon={<AddIcon />}>
               Agregar Modelo
             </Button>
           </CardActions>
           <CardContent>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table sx={{ minWidth: 650 }} size="small" aria-label="custom pagination table">
                 <TableHead>
                   <TableRow>
                     <TableCell>Id</TableCell>
-                    <TableCell >Nombre</TableCell>
-                    <TableCell >Apellido</TableCell>
-                    <TableCell >Cedula</TableCell>
-                    <TableCell >Alias</TableCell>
-                    <TableCell >Status</TableCell>
-                    <TableCell ></TableCell>
+                    <TableCell>Nombre</TableCell>
+                    <TableCell>Apellido</TableCell>
+                    <TableCell>Cedula</TableCell>
+                    <TableCell>Alias</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell component="th" scope="row">{row.id}</TableCell>
-                      <TableCell >{row.name}</TableCell>
-                      <TableCell >{row.last}</TableCell>
-                      <TableCell >{row.cc}</TableCell>
+                  {(rowsPerPage > 0 ? modelosDB.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : modelosDB).map((row) => (
+                    <TableRow key={row._id}>
+                      <TableCell component="th" scope="row">{row.modeloId}</TableCell>
+                      <TableCell >{row.nombre}</TableCell>
+                      <TableCell >{row.apellido}</TableCell>
+                      <TableCell >{row.cedula}</TableCell>
                       <TableCell >{row.alias}</TableCell>
                       <TableCell >{row.status}</TableCell>
-                      <TableCell align="center"><Button variant="outlined" size="small">Ver Perfil</Button></TableCell>
+                      <TableCell align="center"><Button variant="contained" size="small" color="info">Ver Perfil</Button></TableCell>
                     </TableRow>
                   ))}
+                  
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 33 * emptyRows }}>
+                      <TableCell colSpan={7} />
+                    </TableRow>
+                  )}
                 </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      rowsPerPageOptions={[10, 20, 50,]}
+                      colSpan={7}
+                      count={rows.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      SelectProps={{
+                        inputProps: {
+                          "aria-label": "rows per page",
+                        },
+                        native: true,
+                      }}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      ActionsComponent={TablePaginationActions}
+                    />
+                  </TableRow>
+                </TableFooter>
               </Table>
             </TableContainer>
           </CardContent>

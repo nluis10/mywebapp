@@ -33,7 +33,6 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -90,7 +89,7 @@ TablePaginationActions.propTypes = {
 
 const rows = [];
 
-function Modelos({token,usuEmail,rol,borrarToken}) {
+function Movies({token,usuEmail,rol,borrarToken}) {
 
   let navegacion = useNavigate()
   const [modelosDB, setModelosDB] = useState([]);
@@ -146,14 +145,14 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
       <MyAppBar usuEmail={usuEmail} borrarToken={borrarToken}/>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
-        <Typography variant="h4">Modelos</Typography>
+        <Typography variant="h4">Movies</Typography>
         <Divider sx={{ mt: 2, mb: 3 }} />
         <Card sx={{ minWidth: 275 }}>
           <CardActions sx={{ mt: 1, ml: 1, mr: 1 }}>
             <TextField id="outlined-basic" label="Buscar.." variant="outlined" />
             <Divider orientation="vertical" sx={{ flexGrow: 1 }} />
-            <Button component={Link} to="/agregarModelo" variant="contained" startIcon={<AddIcon />}>
-              Agregar Modelo
+            <Button variant="contained" startIcon={<AddIcon />}>
+              Agregar Movie
             </Button>
           </CardActions>
           <CardContent>
@@ -179,7 +178,7 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
                       <TableCell >{row.cedula}</TableCell>
                       <TableCell >{row.alias}</TableCell>
                       <TableCell >{row.status}</TableCell>
-                      <TableCell align="center"><Button variant="contained" size="small" color="info">Ver Perfil</Button></TableCell>
+                      <TableCell align="center"><Button variant="contained" size="small" color="info">Ver Movie</Button></TableCell>
                     </TableRow>
                   ))}
                   
@@ -218,4 +217,4 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
   );
 }
 
-export default Modelos;
+export default Movies;

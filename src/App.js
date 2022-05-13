@@ -5,6 +5,8 @@ import { useState } from "react/cjs/react.development";
 import { useSnackbar } from "notistack";
 
 import Modelos from "./pages/modelos/Modelos";
+import AgregarModelo from "./pages/agregarModelo/AgregarModelo";
+import Movies from "./pages/movies/Movies";
 import Login from "./pages/login/Login";
 
 function App(props) {
@@ -49,6 +51,8 @@ function App(props) {
     <BrowserRouter>
       <Routes>
         <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
+        <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
+        <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
         <Route path={"/login"} element={<Login sesion={iniciarSesion} />} />
       </Routes>
     </BrowserRouter>

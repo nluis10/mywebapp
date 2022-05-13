@@ -80,7 +80,7 @@ function Login({ sesion }) {
                   fullWidth
                   name="contrasena"
                   label="Contraseña"
-                  type="contrasena"
+                  type="password"
                   id="contrasena"
                   value={loginForm.contrasena}
                   onChange={(event) => setLoginForm({ ...loginForm, contrasena: event.target.value })}

@@ -8,6 +8,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -27,8 +28,7 @@ import { useNavigate } from "react-router-dom";
 const drawerWidth = 200;
 
 function MyAppBar(props) {
-
-  let navegacion = useNavigate()
+  let navegacion = useNavigate();
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -48,8 +48,8 @@ function MyAppBar(props) {
 
   const cerrarSesion = () => {
     props.borrarToken();
-    navegacion('/login')
-  }
+    navegacion("/login");
+  };
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -77,35 +77,35 @@ function MyAppBar(props) {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem button key="Modelos">
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <ListItemText primary="Modelos" />
-        </ListItem>
+          <ListItem button key="modelos" component={Link} to="/modelos">
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="Modelos" />
+          </ListItem>
         <Divider />
-        <ListItem button key="Movies">
+        <ListItem button key="movies" component={Link} to="/movies">
           <ListItemIcon>
             <MovieIcon />
           </ListItemIcon>
           <ListItemText primary="Movies" />
         </ListItem>
         <Divider />
-        <ListItem button key="Sitios">
+        <ListItem button key="sitios">
           <ListItemIcon>
             <WebIcon />
           </ListItemIcon>
           <ListItemText primary="Sitios" />
         </ListItem>
         <Divider />
-        <ListItem button key="Casting">
+        <ListItem button key="casting">
           <ListItemIcon>
             <GroupsIcon />
           </ListItemIcon>
           <ListItemText primary="Casting" />
         </ListItem>
         <Divider />
-        <ListItem button key="CerrarSesion">
+        <ListItem button key="cerrarSesion">
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>

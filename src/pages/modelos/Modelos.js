@@ -126,6 +126,10 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
     setPage(0);
   };
 
+  const verPerfil = (e) => {
+    navegacion(`/perfil/${e.target.value}`)
+  }
+
   useEffect(() => {
     //console.log('0')
     if (!token){
@@ -179,7 +183,7 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
                       <TableCell >{row.cedula}</TableCell>
                       <TableCell >{row.alias}</TableCell>
                       <TableCell >{row.status}</TableCell>
-                      <TableCell align="center"><Button variant="contained" size="small" color="info">Ver Perfil</Button></TableCell>
+                      <TableCell align="center"><Button onClick={verPerfil} value={row.cedula} variant="contained" size="small" color="info">Ver Perfil</Button></TableCell>
                     </TableRow>
                   ))}
                   
@@ -188,6 +192,7 @@ function Modelos({token,usuEmail,rol,borrarToken}) {
                       <TableCell colSpan={7} />
                     </TableRow>
                   )}
+                  
                 </TableBody>
                 <TableFooter>
                   <TableRow>

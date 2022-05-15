@@ -66,6 +66,7 @@ function AgregarModelo({ token, usuEmail, rol, borrarToken }) {
   }, []);
 
   async function verificarCedula(cedula){
+    
     const response = await fetch(`http://localhost:8000/api/verificarCedula/${cedula}`,{
       method: "GET",
       headers: {

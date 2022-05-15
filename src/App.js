@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 
 import Modelos from "./pages/modelos/Modelos";
 import AgregarModelo from "./pages/agregarModelo/AgregarModelo";
+import PerfilModelo from "./pages/perfilModelo/PerfilModelo";
 import Movies from "./pages/movies/Movies";
 import Login from "./pages/login/Login";
 
@@ -52,6 +53,7 @@ function App(props) {
       <Routes>
         <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
         <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
+        <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
         <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
         <Route path={"/login"} element={<Login sesion={iniciarSesion} />} />
       </Routes>

@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 
 import Divider from "@mui/material/Divider";
 
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 
 import Table from "@mui/material/Table";
@@ -31,7 +29,7 @@ import MyAppBar from "../../components/myAppBar/MyAppBar";
 
 const drawerWidth = 200;
 
-function PerfilModelo({ token, usuEmail, rol, borrarToken }) {
+function PerfilModelo({ token, usuEmail, rol, borrarToken,apiURL }) {
   let navegacion = useNavigate();
   const [datos, setDatos] = useState({});
   const { enqueueSnackbar } = useSnackbar();
@@ -41,7 +39,7 @@ function PerfilModelo({ token, usuEmail, rol, borrarToken }) {
   console.log(cedula);
 
   let cargarDatos = () => {
-    fetch(`http://localhost:8000/api/perfil/${cedula}`, {
+    fetch(`${apiURL}/api/perfil/${cedula}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

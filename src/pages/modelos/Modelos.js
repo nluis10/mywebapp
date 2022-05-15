@@ -90,14 +90,14 @@ TablePaginationActions.propTypes = {
 
 const rows = [];
 
-function Modelos({token,usuEmail,rol,borrarToken}) {
+function Modelos({token,usuEmail,rol,borrarToken,apiURL}) {
 
   let navegacion = useNavigate()
   const [modelosDB, setModelosDB] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
   let cargarDatos = () => {
-    fetch("http://localhost:8000/api/modelos",{
+    fetch(`${apiURL}/api/modelos`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",

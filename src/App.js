@@ -17,8 +17,11 @@ function App(props) {
   const [rolUsu, setRolUsu] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
+  const apiURL = "http://localhost:8000";
+  //const apiURL = "https://nodejswebapi.herokuapp.com";
+
   const iniciarSesion = (datos, navegacion) => {
-    fetch("http://localhost:8000/api/login", {
+    fetch(`${apiURL}/api/login`, {
       method: "POST",
       body: JSON.stringify(datos),
       headers: {
@@ -51,10 +54,10 @@ function App(props) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
-        <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
-        <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
-        <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken}/>} />
+        <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
+        <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
+        <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
+        <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/login"} element={<Login sesion={iniciarSesion} />} />
       </Routes>
     </BrowserRouter>

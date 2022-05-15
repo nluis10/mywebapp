@@ -33,7 +33,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const drawerWidth = 200;
 
-function AgregarModelo({ token, usuEmail, rol, borrarToken }) {
+function AgregarModelo({ token, usuEmail, rol, borrarToken, apiURL }) {
   const [modeloForm, setModeloForm] = useState({
     nombre: "",
     apellido: "",
@@ -67,7 +67,7 @@ function AgregarModelo({ token, usuEmail, rol, borrarToken }) {
 
   async function verificarCedula(cedula){
     
-    const response = await fetch(`http://localhost:8000/api/verificarCedula/${cedula}`,{
+    const response = await fetch(`${apiURL}/api/verificarCedula/${cedula}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function AgregarModelo({ token, usuEmail, rol, borrarToken }) {
   }
 
   async function verificarEmail(email){
-    const response = await fetch(`http://localhost:8000/api/verificarEmail/${email}`,{
+    const response = await fetch(`${apiURL}/api/verificarEmail/${email}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ function AgregarModelo({ token, usuEmail, rol, borrarToken }) {
         pornhub: e.target.pornhub.value,
       };
 
-      fetch("http://localhost:8000/api/agregarModelo", {
+      fetch(`${apiURL}/api/agregarModelo`, {
         method: "POST",
         body: JSON.stringify(datos),
         headers: {

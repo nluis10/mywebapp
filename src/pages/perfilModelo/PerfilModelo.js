@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 import Divider from "@mui/material/Divider";
 
@@ -68,6 +69,10 @@ function PerfilModelo({ token, usuEmail, rol, borrarToken,apiURL }) {
       });
   };
 
+  const goDocumento = (e) => {
+    navegacion(`/agregarDocumento/${e.target.value}`)
+  }
+
   useEffect(() => {
     //console.log('0')
     if (!token) {
@@ -90,16 +95,15 @@ function PerfilModelo({ token, usuEmail, rol, borrarToken,apiURL }) {
         <Toolbar />
         <Typography variant="h4">Perfil de {datos.nombre} {datos.apellido}</Typography>
         <Divider sx={{ mt: 2, mb: 3 }} />
-            <Grid container rowSpacing={2}>
-              <Grid item xs={12} sm={12} lg={8}>
+            <Grid container spacing={2} rowSpacing={2}>
+              <Grid item xs={12} sm={12} lg={6}>
                 <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} size="small" aria-label="custom pagination table">
+                  <Table sx={{ minWidth: 400 }} size="small" aria-label="custom pagination table">
                     <TableHead>
                       <TableRow>
-                        <TableCell width="40%" >
+                        <TableCell width="40%" align="center" colSpan={2}>
                           <Typography variant="h6">Datos</Typography>
                         </TableCell>
-                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -186,6 +190,171 @@ function PerfilModelo({ token, usuEmail, rol, borrarToken,apiURL }) {
                           <b>Pornhub</b>
                         </TableCell>
                         <TableCell>{datos.pornhub}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell align="center" colSpan={2}>
+                        <Button variant="contained" size="small" color="info">Editar datos</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableFooter></TableFooter>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 350 }} size="small" aria-label="custom pagination table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell width="50%" align="center" colSpan={2}>
+                          <Typography variant="h6">Detalles</Typography>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <b>Color de ojos</b>
+                        </TableCell>
+                        <TableCell>{datos.nombre}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Color del cabello</b>
+                        </TableCell>
+                        <TableCell>{datos.apellido}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Grupo</b>
+                        </TableCell>
+                        <TableCell>{datos.cedula}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Arte corporal</b>
+                        </TableCell>
+                        <TableCell>{datos.alias}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Tipo de cuerpo</b>
+                        </TableCell>
+                        <TableCell>{datos.sexo}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Tipo de culo</b>
+                        </TableCell>
+                        <TableCell>{datos.fechaNacimiento}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Tipo de tetas</b>
+                        </TableCell>
+                        <TableCell>{datos.ciudad}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Peso</b>
+                        </TableCell>
+                        <TableCell>{datos.status}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Altura</b>
+                        </TableCell>
+                        <TableCell>{datos.email}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell align="center" colSpan={2}>
+                        <Button variant="contained" size="small" color="info">Editar detalles</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableFooter></TableFooter>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 350 }} size="small" aria-label="custom pagination table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell width="50%" align="center" colSpan={2}>
+                          <Typography variant="h6">Documentos</Typography>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <b>Cedula 01</b>
+                        </TableCell>
+                        <TableCell>Documento 01</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Cedula 02</b>
+                        </TableCell>
+                        <TableCell>Documento 02</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Contrato 01</b>
+                        </TableCell>
+                        <TableCell>Documento 03</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Contrato 02</b>
+                        </TableCell>
+                        <TableCell>Documento 04</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell align="center" colSpan={2}>
+                        <Button onClick={goDocumento} value={datos.cedula} variant="contained" size="small" color="info">Agregar documentos</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableFooter></TableFooter>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={6}>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 350 }} size="small" aria-label="custom pagination table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell width="50%" align="center" colSpan={2}>
+                          <Typography variant="h6">Escenas</Typography>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <b>101010</b>
+                        </TableCell>
+                        <TableCell>Escena 01</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>202020</b>
+                        </TableCell>
+                        <TableCell>Escena 02</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>303030</b>
+                        </TableCell>
+                        <TableCell>Escena 03</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>404040</b>
+                        </TableCell>
+                        <TableCell>Escena 04</TableCell>
                       </TableRow>
                     </TableBody>
                     <TableFooter></TableFooter>

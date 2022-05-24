@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 
 import Modelos from "./pages/modelos/Modelos";
 import AgregarModelo from "./pages/agregarModelo/AgregarModelo";
+import AgregarDocumento from "./pages/agregarDocumento/AgregarDocumento";
 import PerfilModelo from "./pages/perfilModelo/PerfilModelo";
 import Movies from "./pages/movies/Movies";
 import Login from "./pages/login/Login";
@@ -17,8 +18,8 @@ function App(props) {
   const [rolUsu, setRolUsu] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
-  //const apiURL = "http://localhost:8000";
-  const apiURL = "https://nodejswebapi.herokuapp.com";
+  const apiURL = "http://localhost:8000";
+  //const apiURL = "https://nodejswebapi.herokuapp.com";
 
   const iniciarSesion = (datos, navegacion) => {
     fetch(`${apiURL}/api/login`, {
@@ -56,6 +57,7 @@ function App(props) {
       <Routes>
         <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
+        <Route path={"/agregarDocumento/:cedula"} element={<AgregarDocumento token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/login"} element={<Login sesion={iniciarSesion} />} />

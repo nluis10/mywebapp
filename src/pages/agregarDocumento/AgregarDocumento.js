@@ -7,21 +7,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import OutlinedInput from "@mui/material/OutlinedInput";
-
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 
 import TextField from "@mui/material/TextField";
-
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -130,7 +121,7 @@ function AgregarModelo({ token, usuEmail, rol, borrarToken, apiURL }) {
                 </Grid>
                 <Grid item xs={12} sm={6} lg={4} sx={{ pl: 1, pr: 1, mt: 2 }}>
 
-                  <img src= "http://localhost:8000/api/s3Image/aee895f3ea73e26c5e3b76a0bc878a56" alt="Mi imagen02"></img>
+                  <img src= "http://localhost:8000/api/s3Image/a65572812fb8ffbeb47815e64d9a6441" alt="Mi imagen02"></img>
                 </Grid>
               </Grid>
             </CardContent>

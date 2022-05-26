@@ -19,8 +19,8 @@ function App(props) {
   const [rolUsu, setRolUsu] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
-  const apiURL = "http://localhost:8000";
-  //const apiURL = "https://nodejswebapi.herokuapp.com";
+  //const apiURL = "http://localhost:8000";
+  const apiURL = "https://nodejswebapi.herokuapp.com";
 
   const iniciarSesion = (datos, navegacion) => {
     fetch(`${apiURL}/api/login`, {

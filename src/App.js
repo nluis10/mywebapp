@@ -6,7 +6,6 @@ import { useSnackbar } from "notistack";
 
 import Modelos from "./pages/modelos/Modelos";
 import AgregarModelo from "./pages/agregarModelo/AgregarModelo";
-import AgregarDocumento from "./pages/agregarDocumento/AgregarDocumento";
 import PerfilModelo from "./pages/perfilModelo/PerfilModelo";
 import Movies from "./pages/movies/Movies";
 import BlankPage from "./pages/blankPage/BlankPage";
@@ -58,7 +57,6 @@ function App(props) {
       <Routes>
         <Route path={"/modelos"} element={<Modelos token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/agregarModelo"} element={<AgregarModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
-        <Route path={"/agregarDocumento/:cedula"} element={<AgregarDocumento token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/blankPage"} element={<BlankPage token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />

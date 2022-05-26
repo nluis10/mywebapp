@@ -9,6 +9,7 @@ import AgregarModelo from "./pages/agregarModelo/AgregarModelo";
 import AgregarDocumento from "./pages/agregarDocumento/AgregarDocumento";
 import PerfilModelo from "./pages/perfilModelo/PerfilModelo";
 import Movies from "./pages/movies/Movies";
+import BlankPage from "./pages/blankPage/BlankPage";
 import Login from "./pages/login/Login";
 
 function App(props) {
@@ -60,6 +61,7 @@ function App(props) {
         <Route path={"/agregarDocumento/:cedula"} element={<AgregarDocumento token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/perfil/:cedula"} element={<PerfilModelo token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/movies"} element={<Movies token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
+        <Route path={"/blankPage"} element={<BlankPage token={token} usuEmail={usuEmail} rol={rolUsu} borrarToken={borrarToken} apiURL={apiURL}/>} />
         <Route path={"/login"} element={<Login sesion={iniciarSesion} />} />
       </Routes>
     </BrowserRouter>
